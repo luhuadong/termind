@@ -174,3 +174,9 @@ class TermindCLI(cmd.Cmd):
             print(f"[bold red]未知命令: {line}。输入 'help' 查看可用命令。[/bold red]")
         else:
             print(f"[bold red]Unknown command: {line}. Type 'help' to see available commands.[/bold red]")
+
+def main():
+    TermindCLI().cmdloop()
+
+if __name__ == "__main__":
+    main()

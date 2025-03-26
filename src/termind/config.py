@@ -17,14 +17,20 @@ class ConfigManager:
             "language": "zh",
             "context_length": 20
         }
+        self.config = self.default_config
         self.load_config()
 
     def load_config(self):
         """加载配置文件"""
-        if not self.config_file.exists():
+        try:
+            if not self.config_file.exists():
+                self.save_config()
+            with open(self.config_file, 'r', encoding='utf-8') as f:
+                self.config = json.load(f)
+        except json.JSONDecodeError:
+            print("[bold red]配置文件损坏，已恢复默认配置[/bold red]")
+            self.config = self.default_config
             self.save_config()
-        with open(self.config_file, 'r', encoding='utf-8') as f:
-            self.config = json.load(f)
 
     def save_config(self):
         """保存配置文件"""
